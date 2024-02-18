@@ -3,7 +3,7 @@ package com.paddingleft.edocleet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class MyLinkedList<E> implements Iterable<E> {
+public class DoubleLinkedList<E> implements Iterable<E> {
   private static class Node<E> {
     E val;
     Node<E> next;
@@ -16,7 +16,7 @@ public class MyLinkedList<E> implements Iterable<E> {
   private Node<E> head;
   private Node<E> tail;
   private int size;
-  public MyLinkedList(){
+  public DoubleLinkedList(){
     this.head = new Node<>(null);
     this.tail = new Node<>(null);
     head.next = tail;
@@ -30,8 +30,20 @@ public class MyLinkedList<E> implements Iterable<E> {
 
   @Override
   public Iterator<E> iterator() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'iterator'");
+    return new Iterator<E>() {
+      Node<E> p = head;
+      @Override
+      public boolean hasNext() {
+        return p.next != tail;
+      }
+
+      @Override
+      public E next() {
+        p = p.next;
+        return p.val;
+      }
+      
+    };
   }
 
   public int size() {
@@ -45,13 +57,13 @@ public class MyLinkedList<E> implements Iterable<E> {
 
   private void checkElementIndex(int index) {;
     if (index >= size || index < 0) {
-      throw new UnsupportedOperationException("Unimplemented method 'checkElementIndex'");
+      throw new IndexOutOfBoundsException();
     }
   }
 
   private void checkModificationPosition(int index) {
     if (index > size || index < 0) {
-      throw new UnsupportedOperationException("Unimplemented method 'checkElementIndex'");
+      throw new IndexOutOfBoundsException();
     }
   }
 
@@ -92,5 +104,25 @@ public class MyLinkedList<E> implements Iterable<E> {
     node.prev.next = node.next;
     node.next.prev = node.prev;
     size--;
+  }
+
+  public void addAtHead(E val) {
+    Node<E> newNode = new Node<>(val);
+    Node<E> next = head.next;
+    head.next = newNode;
+    newNode.next = next;
+    newNode.prev = head;
+    next.prev = newNode;
+    size++;
+  }
+  
+  public void addAtTail(E val) {
+    Node<E> newNode = new Node<>(val);
+    Node<E> prev = tail.prev;
+    tail.prev = newNode;
+    newNode.next = tail;
+    newNode.prev = prev;
+    prev.next = newNode;
+    size++;
   }
 }

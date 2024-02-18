@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.Test;
 
-import com.paddingleft.edocleet.MyLinkedList;
+import com.paddingleft.edocleet.DoubleLinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,7 +8,7 @@ public class MyLinkedListTest {
 
     @Test
     public void testAddAndGet() {
-        MyLinkedList<Integer> list = new MyLinkedList<>();
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         list.add(0, 10);
         list.add(1, 20);
         list.add(2, 30);
@@ -20,7 +20,7 @@ public class MyLinkedListTest {
     
     @Test
     public void testRemove() {
-        MyLinkedList<Integer> list = new MyLinkedList<>();
+        DoubleLinkedList<Integer> list = new DoubleLinkedList<>();
         list.add(0, 10);
         list.add(1, 20);
         list.add(2, 30);
